@@ -11,3 +11,8 @@ const addProduct = async (req, res) => {
         res.status(400).send(err);
     }
 }
+
+const getAllProduct = async (req, res) => {
+    let products = Product.find()
+    res.send(products)
+}
