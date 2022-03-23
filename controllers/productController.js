@@ -26,3 +26,9 @@ const getProductById = async (req, res) => {
     }
     res.send(product)
 }
+const deledteBtId = async (req, res) => {
+    let id = req.params.id
+    let search = await Product.findByIdAndDelete(s => s.id === id)
+    req.send(serch)
+}
+module.exports = { addProduct, getAllProduct ,deledteBtId,getProductById}
