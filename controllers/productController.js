@@ -5,30 +5,29 @@ const addProduct = async (req, res) => {
     let p = new Product(req.body)
     try {
         await p.save();
-        res.status(200).send(`add product`);
+        return res.status(200).send(`add product`);
     }
     catch (err) {
-        res.status(400).send(err);
+        return res.status(400).send(err);
     }
 }
 
 const getAllProduct = async (req, res) => {
     let products = await Product.find({})
-    res.send(products)
+    return res.send(products)
 }
 
 const getProductById = async (req, res) => {
 
     const product = await Product.findById(req.params.id)
     if (!product) {
-        res.send("the product is not found")
-        return
+        return res.send("the product is not found")
     }
-    res.send(product)
+    return res.send(product)
 }
 const deledteBtId = async (req, res) => {
     let id = req.params.id
     let search = await Product.findByIdAndDelete(s => s._id === id)
-    req.send(serch)
+    return req.send(serch)
 }
-module.exports = { addProduct, getAllProduct ,deledteBtId,getProductById}
+module.exports = { addProduct, getAllProduct, deledteBtId, getProductById }
