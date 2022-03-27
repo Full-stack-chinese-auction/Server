@@ -1,4 +1,5 @@
 const { Product } = require("../models/product.model");
+const mongoose = require("mongoose");
 
 const addProduct = async (req, res) => {
 
@@ -27,7 +28,13 @@ const getProductById = async (req, res) => {
 }
 const deledteBtId = async (req, res) => {
     let id = req.params.id
-    let search = await Product.findByIdAndDelete(id)
-    return res.send(search)
+    if (mongoose.Types.ObjectId.isValid(id)) {
+        try {
+            await Product.findByIdAndDelete(id)
+            return res.send(`delete sucssefuly ${id} product`)
+        }
+        catch{
+            return res.send('not find the id')
+        }
 }
-module.exports = { addProduct, getAllProduct, deledteBtId, getProductById }
+    module.exports = { addProduct, getAllProduct, deledteBtId, getProductById }
