@@ -5,8 +5,8 @@ const addProduct = async (req, res) => {
 
     let p = new Product(req.body)
     try {
-        await p.save();
-        return res.status(200).send(`add product`);
+    let newP=await p.save();
+    return res.status(200).send(`add product ${newP}`);
     }
     catch (err) {
         return res.status(400).send(err);
