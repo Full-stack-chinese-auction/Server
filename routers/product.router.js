@@ -4,7 +4,7 @@ const express = require('express')
  
 router.post('',  products.addProduct)
 router.get('',products.getAllProduct)
-router.post('',products.deledteBtId)
+router.delete('/:id',products.deledteBtId)
 router.get('/:id',products.getProductById)
 
 module.exports = router;
