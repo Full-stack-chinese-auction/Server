@@ -14,17 +14,29 @@ const addProduct = async (req, res) => {
 }
 
 const getAllProduct = async (req, res) => {
-    let products = await Product.find({})
-    return res.send(products)
+    try {
+        let products = await Product.find({})
+        return res.send(products)
+    }
+    catch {
+        return res.send(400).send(err);
+    }
 }
 
 const getProductById = async (req, res) => {
-
-    const product = await Product.findById(req.params.id)
-    if (!product) {
-        return res.send("the product is not found")
+    let id = req.params.id
+    if (mongoose.Types.ObjectId.isValid(id)) {
+        try {
+            const product = await Product.findById(id)
+            return res.send(product)
+        }
+        catch {
+            return res.send(400).send(err);
+        }
     }
-    return res.send(product)
+    else {
+        return res.send("not find the id")
+    }
 }
 const deledteBtId = async (req, res) => {
     let id = req.params.id
@@ -33,8 +45,12 @@ const deledteBtId = async (req, res) => {
             await Product.findByIdAndDelete(id)
             return res.send(`delete sucssefuly ${id} product`)
         }
-        catch{
-            return res.send('not find the id')
+        catch {
+            return res.send(400).send(err);
         }
+    }
+    else {
+        return res.send("not valid id")
+    }
 }
-    module.exports = { addProduct, getAllProduct, deledteBtId, getProductById }
+module.exports = { addProduct, getAllProduct, deledteBtId, getProductById }
