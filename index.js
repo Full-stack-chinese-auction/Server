@@ -8,4 +8,5 @@ mongoose.connect("mongodb://localhost:27017/chineseAuction").then(() => {
 }).catch(err => console.log(err));
 app.use(express.json())
 app.use("/product",productRout)
+app.use("/win",winRout)
 app.listen(4500, () => { console.log("waiting") })

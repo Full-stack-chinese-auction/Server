@@ -1,14 +1,21 @@
 const mongoose = require("mongoose");
-const {Win}=require(".models/win.model.js");
-const express = require('express')
-const router = express.Router()
+const { Win } = require(".models/win.model");
 
 
-router.post("/win",async(user_id,item_id,winning_date)=>
-{
-    let win=new Win({user_id,item_id,winning_date})
-    await win.save;
-    return win;
-})  
 
-module.exports = router;
+
+const addWin = async (req, res) => {
+    {
+        let win = new Win(req)
+        try {
+            let currentWin = await win.save();
+            return res.status(200).send(`added win ${currentWin}`);
+        }
+        catch (err) {
+            res.status(400).send(err);
+        }
+    }
+
+}
+
+    module.exports = {addWin};
