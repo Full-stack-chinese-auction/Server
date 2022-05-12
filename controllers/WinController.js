@@ -15,7 +15,17 @@ const addWin = async (req, res) => {
             res.status(400).send(err);
         }
     }
-
+    const winnerById = async (req, res) => {
+        let id = req.params.id;
+        try {
+            let win = await Winning.findById(id);
+            return res.send(win);
+        }
+        catch (err) {
+            return res.status(400).send(err)
+        }
+    
+    }
 }
 
-    module.exports = {addWin};
+    module.exports = {addWin,winnerById};
