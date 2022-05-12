@@ -1,9 +1,6 @@
 const mongoose = require("mongoose");
 const { Win } = require(".models/win.model");
 
-
-
-
 const addWin = async (req, res) => {
     {
         let win = new Win(req)
