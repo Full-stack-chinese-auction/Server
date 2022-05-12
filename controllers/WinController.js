@@ -24,8 +24,17 @@ const addWin = async (req, res) => {
         catch (err) {
             return res.status(400).send(err)
         }
-    
+    }
+    const winnerByProductId = async (req, res) => {
+        let id = req.params.id;
+        let winner = await Win.findOne({ item_id: id });
+        let user = await User.findById(winner.user_id._id);
+        if (!user) {
+            res.send(`didnt find winner`)
+            return
+        }
+        console.log(user)
     }
 }
 
-    module.exports = {addWin,winnerById};
+module.exports = { addWin, winnerById,winnerByProductId };
