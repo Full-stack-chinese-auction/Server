@@ -27,14 +27,24 @@ const addWin = async (req, res) => {
     }
     const winnerByProductId = async (req, res) => {
         let id = req.params.id;
-        let winner = await Win.findOne({ item_id: id });
-        let user = await User.findById(winner.user_id._id);
-        if (!user) {
-            res.send(`didnt find winner`)
-            return
+        try {
+            let winner = await Win.findOne({ item_id: id });
+            let user = await User.findById(winner.user_id._id);
+            return res.send(user);
         }
-        console.log(user)
+        catch (err) {
+            return res.status(400).send(err)
+        }
     }
-}
+    const winnersById = async (req, res) => {
+        let id = req.params.id;
+        try {
+            let users = await User.find({}).filter(user=>{user.arr_orders.find(order=>order.item_id==id)!=-1});
+            return res.send(users);
+        }
+        catch (err) {
+            return res.status(400).send(err)
+        }
+    }
 
-module.exports = { addWin, winnerById,winnerByProductId };
+    module.exports = { addWin, winnerById, winnerByProductId,winnersById };
