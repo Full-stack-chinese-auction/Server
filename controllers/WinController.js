@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const { Win } = require(".models/win.model");
+const { Win } = require("../models/win.model");
 
-const addWin = async (req, res) => {
+const addWin = async (req, res) => 
     {
         let win = new Win(req)
         try {
@@ -43,5 +43,5 @@ const addWin = async (req, res) => {
             return res.status(400).send(err)
         }
     }
-}
+
 module.exports = { addWin, winnerById, winnerByProductId, winnersById };
